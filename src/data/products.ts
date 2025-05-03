@@ -10,7 +10,7 @@ export const products = [
 
     { name: 'Newly Baked Garri', image: '/garri.png', price: 9000 },
     { name: 'YUM YUM Fufu Cassava', image: '/fufu-cassava.png', price: 10500 },
-    { name: 'Nigeria Fresh Veg&Fruits', image: '/f$v.png', price: 2000 },
+    { name: 'Nigeria Fresh Veg&Fruits', image: '/f&v.png', price: 2000 },
     { name: 'Fresh Naija Cassava', image: '/cassava1.png', price: 3500 },
     { name: 'Fresh Naija Cassava', image: 'cassava.png', price: 5500 },
     { name: 'Newly farm produce Beans', image: '/beans.png', price: 7000 },
