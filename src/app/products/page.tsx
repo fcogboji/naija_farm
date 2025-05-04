@@ -27,8 +27,8 @@ export default async function ProductsPage() {
             <p className="text-sm text-gray-500 mt-1">
              By {(product.farmer as any)?.name || 'Unknown Farmer'}
             </p>
-          {/* ✅ Fix here: pass the product ID */}
-    <BuyButton productId={product.id} />
+           {/* ✅ Fix here: pass the product ID */}
+           <BuyButton productId={product.id} />
           </div>
         ))}
       </div>
