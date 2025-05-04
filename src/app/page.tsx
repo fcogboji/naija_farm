@@ -7,6 +7,7 @@ import SecurePayments from '@/components/SecurePayments'
 import Testimonials from '@/components/Testimonials'
 import Footer from '@/components/Footer'
 
+
 // Default export function that renders the homepage layout
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       
       {/* Preview section showing sample products */}
       <MarketplacePreview />
+
       
       {/* Explains secure Stripe-powered payments */}
       <SecurePayments />

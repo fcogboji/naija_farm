@@ -1,13 +1,14 @@
-import { ClerkProvider } from '@clerk/nextjs'
+// src/app/layout.tsx
 import './globals.css'
-import type { Metadata } from 'next'
+import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
+import Navbar from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Naija Farm Marketplace',
-  description: 'Buy fresh farm produce directly from farmers.',
+  description: 'Buy fresh farm products directly from Nigerian farmers',
 }
 
 export default function RootLayout({
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Navbar /> {/* ✅ This must be inside <body>, not <html> */}
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   )

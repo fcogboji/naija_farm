@@ -6,10 +6,92 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL") // Get this from Neon
+}
+
+
+model User {
+  id                   String                @id @default(cuid())
+  clerkId              String                @unique
+  name                 String
+  email                String                @unique
+  isVerifiedFarmer     Boolean               @default(false)
+  isAdmin              Boolean               @default(false)
+  stripeAccountId      String?
+  products             Product[]
+  messagesSent         Message[]             @relation("MessageSender")
+  messagesReceived     Message[]             @relation("MessageReceiver")
+  verificationRequests VerificationRequest[]
+  buyingTransactions   Transaction[]         @relation("Buyer") // 👈 Add this
+  sellingTransactions  Transaction[]         @relation("Seller") // 👈 Add this
+  createdAt            DateTime              @default(now())
+}
+
+model Product {
+  id           String        @id @default(cuid())
+  name     String?
+  title        String
+  imageUrl     String
+  authorId     String
+  price        Int
+  description  String?
+  author       User          @relation(fields: [authorId], references: [id])
+  transactions Transaction[]
+  farmerId    String
+  farmer      Farmer   @relation(fields: [farmerId], references: [id])
+   createdAt   DateTime @default(now()) // ✅ Add this line
+}
+
+model Transaction {
+  id         String   @id @default(cuid())
+  productId  String
+  buyerId    String
+  sellerId   String
+  amount     Float
+  commission Float
+  status     String
+  createdAt  DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id])
+  buyer   User    @relation("Buyer", fields: [buyerId], references: [id])
+  seller  User    @relation("Seller", fields: [sellerId], references: [id])
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  content    String
+  createdAt  DateTime @default(now())
+
+  sender   User @relation("MessageSender", fields: [senderId], references: [id])
+  receiver User @relation("MessageReceiver", fields: [receiverId], references: [id])
+}
+
+model VerificationRequest {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  status    String   @default("pending") // "pending", "approved", "rejected"
+  message   String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Farmer {
+  id       String    @id @default(uuid())
+  clerkId  String    @unique
+  products Product[]
 }
