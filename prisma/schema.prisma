@@ -93,5 +93,7 @@ model ContactMessage {
 model Farmer {
   id       String    @id @default(uuid())
   clerkId  String    @unique
+  name     String    // ✅ Add this line
   products Product[]
 }
+

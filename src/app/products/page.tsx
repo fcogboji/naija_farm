@@ -1,11 +1,17 @@
 // src/app/products/page.tsx
 import { prisma } from '@/lib/db'
 import BuyButton from '@/components/BuyButton'
+import Image from 'next/image'
+import { Product, Farmer } from '@prisma/client'
+
+type ProductWithFarmer = Product & {
+  farmer: Farmer | null
+}
 
 export default async function ProductsPage() {
-  const products = await prisma.product.findMany({
+  const products: ProductWithFarmer[] = await prisma.product.findMany({
     include: {
-      farmer: true, // Optional: if you want to show farmer info
+      farmer: true,
     },
     orderBy: {
       createdAt: 'desc',
@@ -20,15 +26,21 @@ export default async function ProductsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map(product => (
           <div key={product.id} className="border p-4 rounded shadow-sm">
-            <img src={product.imageUrl} alt={product.title} className="w-full h-48 object-cover rounded mb-2" />
+            <div className="relative w-full h-48 mb-2">
+              <Image
+                src={product.imageUrl}
+                alt={product.title}
+                fill
+                className="object-cover rounded"
+              />
+            </div>
             <h2 className="text-lg font-semibold">{product.title}</h2>
             <p className="text-gray-700">{product.description}</p>
             <p className="font-bold mt-2">₦{product.price.toLocaleString()}</p>
             <p className="text-sm text-gray-500 mt-1">
-             By {(product.farmer as any)?.name || 'Unknown Farmer'}
+              By {product.farmer?.name || 'Unknown Farmer'}
             </p>
-          {/* ✅ Fix here: pass the product ID */}
-          <BuyButton productId={product.id} />
+            <BuyButton productId={product.id} />
           </div>
         ))}
       </div>
