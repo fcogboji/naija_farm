@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
   const totalAmount = Math.round(product.price * 100) // in kobo
   const commission = Math.round(totalAmount * 0.2) // 20%
-  const sellerReceives = totalAmount - commission
+  //const sellerReceives = totalAmount - commission
 
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
