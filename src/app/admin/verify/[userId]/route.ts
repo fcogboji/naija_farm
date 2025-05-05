@@ -1,13 +1,11 @@
 // src/app/admin/verify/[userId]/route.ts
-
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/db'
 
-// Correctly typed POST handler
 export async function POST(
   req: NextRequest,
-  context: { params: { userId: string } } // ✅ context contains route parameters
+  context: { params: { userId: string } }
 ) {
   const { userId: clerkId } = await auth()
 
@@ -29,7 +27,7 @@ export async function POST(
   if (action === 'approve') {
     await prisma.user.update({
       where: { id: context.params.userId },
-      data: { isVerifiedFarmer: true } // ✅ sets verified status
+      data: { isVerifiedFarmer: true }
     })
   }
 
