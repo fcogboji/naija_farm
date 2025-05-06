@@ -1,5 +1,11 @@
 // src/app/admin/verify/[userId]/route.ts
+import { NextRequest } from 'next/server';
 
+export async function POST(request: NextRequest, context: { params: { userId: string } }) {
+  const userId = context.params.userId;
+  // Your logic to handle the POST request with userId
+  return new Response(JSON.stringify({ message: `Received POST request for user: ${userId}` }));
+}
 
 {/*import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
