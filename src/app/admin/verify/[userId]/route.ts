@@ -1,5 +1,7 @@
 // src/app/admin/verify/[userId]/route.ts
-import { NextRequest, NextResponse } from 'next/server'
+
+
+{/*import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/db'
 
@@ -36,4 +38,4 @@ export async function POST(
   })
 
   return new NextResponse("Success", { status: 200 })
-}
+} */}
