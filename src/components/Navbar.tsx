@@ -6,10 +6,8 @@ import { usePathname } from 'next/navigation'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 const links = [
-    { href: '/', label: 'Home' },
     { href: '/farmer/upload', label: 'upload' },
     { href: '/products', label: 'Products' },
-    { href: '/admin/verify', label: 'admin/verify' },
     { href: '/contact-us', label: 'Contact-us' },
     { href: '/dashboard', label: 'Dashboard' },
   ]
